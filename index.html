@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="hosting-provider" content="Netlify">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sarm Jee Trading Live - Premium Settlement</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            --accent-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --btn-blue: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            --card-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background: #eef2f5; 
+            display: flex; 
+            justify-content: center; 
+            margin: 0;
+            padding: 0;
+            color: #2c3e50; 
+            min-height: 100vh;
+        }
+
+        .phone-mockup { 
+            width: 100%; 
+            max-width: 450px; 
+            min-height: 100vh;
+            background: #ffffff; 
+            overflow-x: hidden;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2); 
+            position: relative; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER GRADIENT */
+        .blue-bg { 
+            background: var(--primary-gradient); 
+            height: 160px; 
+            flex-shrink: 0; 
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+        
+        /* USER CARD */
+        .user-card { 
+            background: #ffffff; 
+            width: 86%; 
+            margin: -85px auto 0; 
+            border-radius: 24px; 
+            text-align: center; 
+            padding: 24px 20px 20px; 
+            box-shadow: var(--card-shadow); 
+            position: relative; 
+            z-index: 5;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .pfp-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-top: -65px;
+        }
+
+        .pfp { 
+            width: 86px; 
+            height: 86px; 
+            border-radius: 50%; 
+            border: 4px solid #ffffff; 
+            background: #f8f9fa; 
+            object-fit: cover;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .verified-badge {
+            background: #10b981 !important;
+            color: white !important;
+            width: 18px;
+            height: 18px;
+            border-radius: 50% !important;
+            font-size: 11px;
+            margin-left: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(16, 185, 129, 0.4);
+            line-height: 1;
+        }
+
+        .balance-label { 
+            font-size: 11px; 
+            color: #8a99ad; 
+            margin-top: 14px; 
+            text-transform: uppercase; 
+            letter-spacing: 1.2px; 
+            font-weight: 700; 
+        }
+
+        .balance-amt { 
+            font-size: 32px; 
+            font-weight: 800; 
+            color: #0f172a; 
+            margin-top: 4px; 
+            letter-spacing: -0.5px;
+        }
+
+        /* FORM STYLING */
+        .form { padding: 25px 24px 10px; }
+
+        .box { 
+            border: 1.5px solid #e2e8f0; 
+            border-radius: 16px; 
+            padding: 14px 18px; 
+            margin-bottom: 18px; 
+            background: #f8fafc;
+            transition: all 0.3s ease;
+        }
+
+        .box:focus-within {
+            border-color: #2563eb;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .box label { 
+            font-size: 10px; 
+            color: #64748b; 
+            display: block; 
+            margin-bottom: 6px; 
+            font-weight: 800; 
+            letter-spacing: 0.8px;
+        }
+
+        .box input { 
+            border: none; 
+            width: 100%; 
+            outline: none; 
+            font-size: 17px; 
+            font-weight: 700; 
+            background: transparent; 
+            color: #0f172a; 
+        }
+        
+        #error-msg { 
+            color: #ef4444; 
+            font-size: 12px; 
+            font-weight: 700; 
+            margin-bottom: 14px; 
+            display: none; 
+            text-align: center; 
+            background: #fef2f2;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #fee2e2;
+        }
+
+        .res { 
+            padding: 16px; 
+            border-radius: 16px; 
+            margin-bottom: 24px; 
+            font-size: 14px; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); 
+            color: #065f46; 
+            border: 1px solid #a7f3d0;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
+        }
+        
+        .btn { 
+            background: var(--btn-blue); 
+            color: white; 
+            width: 100%; 
+            border: none; 
+            padding: 18px; 
+            border-radius: 16px; 
+            font-size: 15px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.45);
+        }
+
+        .btn:disabled { 
+            background: #cbd5e1; 
+            color: #94a3b8; 
+            cursor: not-allowed; 
+            box-shadow: none; 
+            transform: none;
+        }
+
+        /* PREMIUM FOOTER */
+        .premium-footer {
+            padding: 10px 24px 24px;
+            margin-top: auto;
+            background: #ffffff;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f8fafc;
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1px solid #f1f5f9;
+            margin-bottom: 10px;
+        }
+
+        .badge-icon {
+            font-size: 18px;
+            background: #ffffff;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .badge-text h4 { margin: 0; font-size: 12px; color: #1e293b; font-weight: 700; }
+        .badge-text p { margin: 2px 0 0; font-size: 10px; color: #64748b; }
+
+        /* LOADER OVERLAY */
+        #loaderOverlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            z-index: 90;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .loader-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 28px;
+            padding: 40px 24px;
+            width: 88%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .spinner-container {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner-circle {
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #38ef7d;
+            border-right: 4px solid #11998e;
+            border-radius: 50%;
+            animation: spin 1s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite;
+        }
+
+        .spinner-icon {
+            position: absolute;
+            font-size: 28px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .loader-sub {
+            font-size: 12px;
+            color: #94a3b8;
+            max-width: 250px;
+            line-height: 1.5;
+            min-height: 36px;
+        }
+
+        .progress-bar-wrap {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 25px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #11998e, #38ef7d);
+            border-radius: 10px;
+            transition: width 0.2s linear;
+            box-shadow: 0 0 12px rgba(56, 239, 125, 0.6);
+        }
+
+        .secure-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 20px;
+            font-size: 10px;
+            color: #38ef7d;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* RECEIPT OVERLAY */
+        #overlay { 
+            display: none; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: #ffffff; 
+            z-index: 100; 
+            flex-direction: column;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        #overlay.active { opacity: 1; }
+        
+        .receipt-popup { 
+            background: #ffffff; 
+            width: 100%; 
+            height: 100%; 
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .receipt-scrollable {
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .bank-header {
+            padding: 35px 20px 25px;
+            text-align: center;
+            background: var(--primary-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .bank-logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .bank-slogan {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .info-bar {
+            background-color: #f8fafc;
+            color: #475569;
+            padding: 14px 24px;
+            font-weight: 700;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #e2e8f0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .receipt-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .receipt-table td {
+            padding: 16px 24px;
+            font-size: 13.5px;
+            color: #1e293b;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+
+        .label {
+            font-weight: 700;
+            width: 45%;
+            color: #64748b;
+            text-transform: uppercase;
+            font-size: 10.5px;
+            letter-spacing: 0.6px;
+            text-align: left;
+        }
+
+        .value {
+            text-align: left;
+            font-weight: 600;
+            width: 55%;
+            word-wrap: break-word;
+        }
+
+        .status-badge-pending {
+            background: #fef2f2;
+            color: #ef4444;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            display: inline-block;
+            border: 1px solid #fee2e2;
+        }
+
+        .total-row { background-color: #f8fafc; }
+
+        .total-amount {
+            font-weight: 800;
+            color: #ef4444;
+            font-size: 18px;
+        }
+
+        .hold-box {
+            margin: 20px 24px;
+            padding: 16px;
+            background-color: #fff1f2;
+            border: 1px dashed #fda4af;
+            border-left: 4px solid #f43f5e;
+            border-radius: 12px;
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: #881337;
+        }
+
+        .footer-note {
+            padding: 20px;
+            font-size: 11px;
+            color: #94a3b8;
+            background: #ffffff;
+            text-align: center;
+            border-top: 1px solid #f1f5f9;
+            line-height: 1.5;
+        }
+
+        .tap-close-banner {
+            background: #0f172a;
+            color: #ffffff;
+            text-align: center;
+            padding: 18px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+
+        .tap-close-banner:hover {
+            background: #1e293b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-mockup">
+    <div class="blue-bg"></div>
+    <div class="user-card">
+        <div class="pfp-wrapper">
+            <img src="https://www.w3schools.com/howto/img_avatar.png" id="userPhoto" class="pfp" alt="User Avatar">
+        </div>
+        <div id="userName" style="display: flex; align-items: center; justify-content: center; font-weight:800; margin-top:10px; font-size: 20px; color: #0f172a; min-height: 24px;"></div>
+        <div class="balance-label">Available Balance</div>
+        <div class="balance-amt" id="availBalance">£0.00</div>
+    </div>
+
+    <div class="form">
+        <div class="box">
+            <label>ACCOUNT NUMBER</label>
+            <input type="text" id="accInput" placeholder="Enter Account Number">
+        </div>
+        <div class="box">
+            <label>WITHDRAWAL AMOUNT (GBP)</label>
+            <input type="number" id="gbpAmount" placeholder="0.00">
+        </div>
+        <div id="error-msg">⚠️ Insufficient Available Balance</div>
+        
+        <div class="res">
+            <span>Converted INR Amount:</span> <span id="inrValue">₹0.00</span>
+        </div>
+        
+        <button class="btn" id="confirmBtn" disabled onclick="startProcessing()">Confirm Withdrawal</button>
+    </div>
+
+    <div class="premium-footer">
+        <div class="security-badge">
+            <div class="badge-icon">🔒</div>
+            <div class="badge-text">
+                <h4>256-BIT ENCRYPTED</h4>
+                <p>Banking-grade end-to-end security</p>
+            </div>
+        </div>
+        <div class="security-badge">
+            <div class="badge-icon">⚡</div>
+            <div class="badge-text">
+                <h4>INSTANT WIRE ROUTING</h4>
+                <p>Automated settlement gateway</p>
+            </div>
+        </div>
+        <div class="security-badge">
+            <div class="badge-icon">🎧</div>
+            <div class="badge-text">
+                <h4>PRIORITY SUPPORT</h4>
+                <p>24/7 dedicated account manager</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="loaderOverlay">
+        <div class="loader-card">
+            <div class="spinner-container">
+                <div class="spinner-circle"></div>
+                <div class="spinner-icon">⚡</div>
+            </div>
+            <div class="loader-title" id="loaderTitle">Processing Settlement</div>
+            <div class="loader-sub" id="loaderSub">Verifying account credentials with secure banking nodes</div>
+            
+            <div class="progress-bar-wrap">
+                <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+
+            <div class="secure-tag">
+                <span>🛡️</span> SSL Encrypted Node
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay">
+        <div class="receipt-popup" id="receiptPopup">
+            <div class="receipt-scrollable">
+                <div class="bank-header">
+                    <div class="bank-logo-text" id="rcBankName">GLOBAL PAYMENT GATEWAY</div>
+                    <div class="bank-slogan" id="rcBankSlogan">Official Wire Settlement Report</div>
+                </div>
+
+                <div class="info-bar">
+                    <span>Transaction Report</span>
+                    <span id="rcDate">16-May-2026</span>
+                </div>
+
+                <table class="receipt-table">
+                    <tr>
+                        <td class="label">Beneficiary Name</td>
+                        <td class="value"><b id="rcName" style="color: #0f172a;">---</b></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Account Number</td>
+                        <td class="value" id="rcAcc">----</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Reference ID</td>
+                        <td class="value" id="rcRefId">GB-IND-997650987602</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Transfer Type</td>
+                        <td class="value">IMPS International Wire</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Current Status</td>
+                        <td class="value"><span class="status-badge-pending">PENDING (ON HOLD)</span></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Amount (INR)</td>
+                        <td class="value" id="rcAmt">₹0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Government Tax</td>
+                        <td class="value" id="rcTaxVal" style="color: #ef4444; font-weight: 700;">Required</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td class="label">TOTAL PAYABLE</td>
+                        <td class="total-amount" id="rcTotalAmt">₹0.00</td>
+                    </tr>
+                </table>
+
+                <div class="hold-box">
+                    <b style="color: #be123c; font-size: 13px;">ATTENTION REQUIRED:</b><br>
+                    Your settlement transaction is currently on hold. As this remittance originated in GBP, local compliance regulations require government tax payment prior to final INR clearance into your bank account.
+                </div>
+
+                <div class="footer-note">
+                    <b>System Note:</b> Computer-generated electronic settlement receipt.<br>
+                    © 2026 <span id="rcFooterBank">GLOBAL PAYMENT GATEWAY</span>. All Rights Reserved.
+                </div>
+            </div>
+            <div class="tap-close-banner" onclick="closeReceiptPopup()">← Return to Dashboard</div>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBYDKYphOi82ADCnmQXhSqUDP90jbmJ0G8",
+        authDomain: "trading-b6219.firebaseapp.com",
+        projectId: "trading-b6219",
+        storageBucket: "trading-b6219.appspot.com",
+        messagingSenderId: "688542985228",
+        appId: "1:688542985228:web:b52975f2f9e2b87f055a29"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let currentInrRate = 129.50; // Updated to GBP to INR conversion rate
+    let isUserValid = false;
+    let userBalance = 0;
+    let fetchedUserName = "";
+    let fetchedUserBank = "GLOBAL PAYMENT GATEWAY";
+    let fetchedUserTax = "Required";
+
+    const accInput = document.getElementById("accInput");
+    const gbpInput = document.getElementById("gbpAmount");
+    const confirmBtn = document.getElementById("confirmBtn");
+    const errorMsg = document.getElementById("error-msg");
+
+    function validateForm() {
+        const gbp = parseFloat(gbpInput.value) || 0;
+        if (isUserValid && gbp > 0) {
+            if (gbp > userBalance) {
+                errorMsg.style.display = "block";
+                confirmBtn.disabled = true;
+            } else {
+                errorMsg.style.display = "none";
+                confirmBtn.disabled = false;
+            }
+        } else {
+            errorMsg.style.display = "none";
+            confirmBtn.disabled = true;
+        }
+    }
+
+    accInput.addEventListener('input', async () => {
+        const acc = accInput.value.trim();
+        if(acc.length < 3) {
+            resetUser();
+            return;
+        }
+        try {
+            const docRef = doc(db, "users", acc);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                fetchedUserName = data.name;
+                fetchedUserBank = data.bank ? data.bank : "GLOBAL PAYMENT GATEWAY";
+                fetchedUserTax = data.tax ? data.tax : "Required";
+
+                document.getElementById("userName").innerHTML = data.name + ' <span class="verified-badge">✓</span>';
+                document.getElementById("userPhoto").src = data.photo || "https://www.w3schools.com/howto/img_avatar.png";
+                
+                userBalance = parseFloat(data.balance) || 0;
+                document.getElementById("availBalance").innerText = "£" + userBalance.toLocaleString('en-GB', {minimumFractionDigits: 2});
+                
+                gbpInput.value = userBalance;
+                document.getElementById("inrValue").innerText = userBalance > 0 ? "₹" + (userBalance * currentInrRate).toLocaleString('en-IN', {minimumFractionDigits: 2}) : "₹0.00";
+                
+                isUserValid = true;
+            } else {
+                resetUser();
+            }
+        } catch (e) { console.error(e); }
+        validateForm();
+    });
+
+    function resetUser() {
+        isUserValid = false;
+        fetchedUserName = "";
+        fetchedUserBank = "GLOBAL PAYMENT GATEWAY";
+        fetchedUserTax = "Required";
+        
+        document.getElementById("userName").innerHTML = ""; 
+        document.getElementById("availBalance").innerText = "£0.00";
+        document.getElementById("userPhoto").src = "https://www.w3schools.com/howto/img_avatar.png";
+        gbpInput.value = "";
+        document.getElementById("inrValue").innerText = "₹0.00";
+        validateForm();
+    }
+
+    gbpInput.addEventListener('input', () => {
+        const gbp = parseFloat(gbpInput.value) || 0;
+        document.getElementById("inrValue").innerText = gbp > 0 ? "₹" + (gbp * currentInrRate).toLocaleString('en-IN', {minimumFractionDigits: 2}) : "₹0.00";
+        validateForm();
+    });
+
+    // EXACT 6.7 SECONDS LOADER WITH PROGRESS & TEXT ANIMATION
+    window.startProcessing = function() {
+        const loader = document.getElementById("loaderOverlay");
+        const title = document.getElementById("loaderTitle");
+        const sub = document.getElementById("loaderSub");
+        const progress = document.getElementById("progressFill");
+
+        loader.style.display = "flex";
+        progress.style.width = "0%";
+
+        setTimeout(() => {
+            title.innerText = "Connecting Gateway...";
+            sub.innerText = "Establishing end-to-end encrypted link with central clearance server";
+        }, 1800);
+
+        setTimeout(() => {
+            title.innerText = "Converting Remittance...";
+            sub.innerText = "Applying foreign exchange conversion rules (GBP to INR)";
+        }, 4000);
+
+        setTimeout(() => {
+            title.innerText = "Finalizing Settlement...";
+            sub.innerText = "Generating verified compliance reference ID";
+        }, 5600);
+
+        let startTime = Date.now();
+        let duration = 6700; 
+
+        let interval = setInterval(() => {
+            let elapsed = Date.now() - startTime;
+            let percentage = Math.min((elapsed / duration) * 100, 100);
+            progress.style.width = percentage + "%";
+
+            if (elapsed >= duration) {
+                clearInterval(interval);
+                loader.style.display = "none";
+                showReceiptPopup();
+            }
+        }, 50);
+    }
+
+    function showReceiptPopup() {
+        const gbp = parseFloat(gbpInput.value) || 0;
+        const inrAmount = gbp * currentInrRate;
+        const accNum = accInput.value.trim();
+        
+        document.getElementById("rcBankName").innerText = fetchedUserBank;
+        document.getElementById("rcFooterBank").innerText = fetchedUserBank;
+        document.getElementById("rcBankSlogan").innerText = "Official Wire Settlement Report - " + fetchedUserBank;
+        
+        const today = new Date();
+        const options = { day: '2-digit', month: 'short', year: 'numeric' };
+        document.getElementById("rcDate").innerText = today.toLocaleDateString('en-GB', options).replace(/ /g, '-');
+        
+        document.getElementById("rcName").innerText = fetchedUserName.toUpperCase();
+        
+        if(accNum.length > 4) {
+            document.getElementById("rcAcc").innerText = accNum.substring(0, 4) + "-XXXX-XXXX-" + accNum.substring(accNum.length - 4);
+        } else {
+            document.getElementById("rcAcc").innerText = accNum;
+        }
+        
+        document.getElementById("rcRefId").innerText = "GB-IND-997650987602";
+        
+        document.getElementById("rcAmt").innerText = "₹" + inrAmount.toLocaleString('en-IN', {minimumFractionDigits: 2});
+        document.getElementById("rcTotalAmt").innerText = "₹" + inrAmount.toLocaleString('en-IN', {minimumFractionDigits: 2});
+        
+        document.getElementById("rcTaxVal").innerText = fetchedUserTax;
+        
+        document.getElementById("overlay").style.display = "flex";
+        setTimeout(() => { document.getElementById("overlay").classList.add("active"); }, 50);
+    }
+
+    window.closeReceiptPopup = function() {
+        document.getElementById("overlay").classList.remove("active");
+        setTimeout(() => { 
+            document.getElementById("overlay").style.display = "none"; 
+            location.reload(); 
+        }, 300);
+    }
+</script>
+
+</body>
+</html>
